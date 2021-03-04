@@ -3,7 +3,7 @@ import * as wordController from './controllers/wordController';
 
 export default (app:Application)=>{
 
-    app.get('/',wordController.getWords);
+    app.post('/',wordController.getWords);
 
     app.get('/topwords',wordController.getTopWords);
 
