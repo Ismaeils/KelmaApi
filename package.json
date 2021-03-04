@@ -12,7 +12,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/cors": "^2.8.10",
     "@types/mongoose": "^5.10.3",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "firebase": "^8.2.9",
     "firebase-admin": "^9.5.0",
