@@ -3,8 +3,16 @@ import Word from '../models/word';
 import admin from 'firebase-admin';
 import * as jf from 'joiful';
 
+require('dotenv').config();
+//console.log(Buffer.from(process.env.PRIVATE_KEY as string, 'base64').toString());
+let privateKeyString = process.env.PRIVATE_KEY?.replace(/\\n/g, '\n');
+
 admin.initializeApp({
-    credential: admin.credential.cert(require('../../../KelmaServiceKeys.json'))
+    credential: admin.credential.cert({
+        privateKey: privateKeyString,
+        projectId: process.env.PROJECT_ID,
+        clientEmail: process.env.CLIENT_EMAIL
+    })
 });
 const db = admin.firestore();
 

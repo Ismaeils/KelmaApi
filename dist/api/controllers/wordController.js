@@ -30,13 +30,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.likeWord = exports.addSamples = exports.addWord = exports.getTopWords = exports.getWords = void 0;
 const word_1 = __importDefault(require("../models/word"));
 const firebase_admin_1 = __importDefault(require("firebase-admin"));
 const jf = __importStar(require("joiful"));
+require('dotenv').config();
+//console.log(Buffer.from(process.env.PRIVATE_KEY as string, 'base64').toString());
+let privateKeyString = (_a = process.env.PRIVATE_KEY) === null || _a === void 0 ? void 0 : _a.replace(/\\n/g, '\n');
 firebase_admin_1.default.initializeApp({
-    credential: firebase_admin_1.default.credential.cert(require('../../KelmaServiceKeys.json'))
+    credential: firebase_admin_1.default.credential.cert({
+        privateKey: privateKeyString,
+        projectId: process.env.PROJECT_ID,
+        clientEmail: process.env.CLIENT_EMAIL
+    })
 });
 const db = firebase_admin_1.default.firestore();
 const waitRandom = () => {
