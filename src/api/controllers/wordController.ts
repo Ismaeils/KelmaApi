@@ -31,14 +31,25 @@ const assignId = ()=>{
 
 
 export let getWords = async (req:Request, res:Response)=> {
+    let currentWordId = req.body.word_id;
     let words:Array<Word> = [];
-    let snapshot = await db.collection('words')
-    .orderBy('time', 'desc')
-    .limit(10)
-    .get();
+    let snapshot;
+    if(currentWordId){
+        let wordRef = db.collection('words').doc(currentWordId);
+        let currentWordSnapshot = await wordRef.get();
+        let startAtSnapshot = db.collection('words')
+        .orderBy('time', 'desc')
+        .startAt(currentWordSnapshot);
 
+        snapshot = await startAtSnapshot.limit(10).get();
+        
+    }else{
+        snapshot = await db.collection('words')
+        .orderBy('time', 'desc')
+        .limit(10)
+        .get();
+    }
     snapshot.forEach(doc=>words.push(Word.fromMap(doc.data())));
-
     return res.send(words);
 }
 
