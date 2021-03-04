@@ -36,7 +36,7 @@ const word_1 = __importDefault(require("../models/word"));
 const firebase_admin_1 = __importDefault(require("firebase-admin"));
 const jf = __importStar(require("joiful"));
 firebase_admin_1.default.initializeApp({
-    credential: firebase_admin_1.default.credential.cert(require('../../../KelmaServiceKeys.json'))
+    credential: firebase_admin_1.default.credential.cert(require('../../KelmaServiceKeys.json'))
 });
 const db = firebase_admin_1.default.firestore();
 const waitRandom = () => {
